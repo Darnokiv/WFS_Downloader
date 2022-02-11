@@ -47,7 +47,8 @@ class RootWindow:
             width=37,
             height=8,
             font="Bahnschrift 15",
-            text="Variante 1"
+            text="Variante 1",
+            command=lambda: [self.frm_main.destroy(), Variante1(self.root_window)]
         )
         btn_variante2 = tk.Button(
             master=self.frm_main,
@@ -56,7 +57,8 @@ class RootWindow:
             width=37,
             height=8,
             font="Bahnschrift 15",
-            text="Variante 2"
+            text="Variante 2",
+            command=lambda: [self.frm_main.destroy(), Variante2(self.root_window)]
         )
         btn_variante3 = tk.Button(
             master=self.frm_main,
@@ -65,7 +67,8 @@ class RootWindow:
             width=37,
             height=8,
             font="Bahnschrift 15",
-            text="Variante 3"
+            text="Variante 3",
+            command=lambda: [self.frm_main.destroy(), Variante3(self.root_window)]
         )
         btn_variante4 = tk.Button(
             master=self.frm_main,
@@ -74,7 +77,8 @@ class RootWindow:
             width=37,
             height=8,
             font="Bahnschrift 15",
-            text="Variante 4"
+            text="Variante 4",
+            command=lambda: [self.frm_main.destroy(), Variante4(self.root_window)]
         )
 
         self.frm_main.grid(
@@ -94,6 +98,170 @@ class RootWindow:
         )
         btn_variante4.grid(
             column=3, row=3
+        )
+
+
+class Variante1(RootWindow):
+
+    def __init__(self, root_window):
+        super(RootWindow).__init__()
+
+        self.root_window = root_window
+        self.variante1_gui()
+        self.root_window.mainloop()
+
+    def variante1_gui(self):
+
+        self.frm_main = tk.Frame(
+            master=self.root_window
+        )
+        lbl_welcome = tk.Label(
+            master=self.frm_main,
+            font="Bahnschrift 30",
+            text="Variante 1"
+        )
+        btn_back = tk.Button(
+            master=self.frm_main,
+            bg="#da5454",
+            activebackground="white",
+            width=10,
+            height=3,
+            font="Bahnschrift",
+            text="Zurück",
+            command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
+        )
+
+        self.frm_main.grid(
+            column=0, row=0
+        )
+        lbl_welcome.grid(
+            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+        )
+        btn_back.grid(
+            column=1, row=0, padx=10
+        )
+
+
+class Variante2(RootWindow):
+
+    def __init__(self, root_window):
+        super(RootWindow).__init__()
+
+        self.root_window = root_window
+        self.variante2_gui()
+        self.root_window.mainloop()
+
+    def variante2_gui(self):
+
+        self.frm_main = tk.Frame(
+            master=self.root_window
+        )
+        lbl_welcome = tk.Label(
+            master=self.frm_main,
+            font="Bahnschrift 30",
+            text="Variante 2"
+        )
+        btn_back = tk.Button(
+            master=self.frm_main,
+            bg="#da5454",
+            activebackground="white",
+            width=10,
+            height=3,
+            font="Bahnschrift",
+            text="Zurück",
+            command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
+        )
+
+        self.frm_main.grid(
+            column=0, row=0
+        )
+        lbl_welcome.grid(
+            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+        )
+        btn_back.grid(
+            column=1, row=0, padx=10
+        )
+
+
+class Variante3(RootWindow):
+
+    def __init__(self, root_window):
+        super(RootWindow).__init__()
+
+        self.root_window = root_window
+        self.variante3_gui()
+        self.root_window.mainloop()
+
+    def variante3_gui(self):
+
+        self.frm_main = tk.Frame(
+            master=self.root_window
+        )
+        lbl_welcome = tk.Label(
+            master=self.frm_main,
+            font="Bahnschrift 30",
+            text="Variante 3"
+        )
+        btn_back = tk.Button(
+            master=self.frm_main,
+            bg="#da5454",
+            activebackground="white",
+            width=10,
+            height=3,
+            font="Bahnschrift",
+            text="Zurück",
+            command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
+        )
+
+        self.frm_main.grid(
+            column=0, row=0
+        )
+        lbl_welcome.grid(
+            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+        )
+        btn_back.grid(
+            column=1, row=0, padx=10
+        )
+
+
+class Variante4(RootWindow):
+
+    def __init__(self, root_window):
+        super(RootWindow).__init__()
+
+        self.root_window = root_window
+        self.variante4_gui()
+        self.root_window.mainloop()
+
+    def variante4_gui(self):
+
+        self.frm_main = tk.Frame(
+            master=self.root_window
+        )
+        lbl_welcome = tk.Label(
+            master=self.frm_main,
+            font="Bahnschrift 30",
+            text="Variante 4"
+        )
+        btn_back = tk.Button(
+            master=self.frm_main,
+            bg="#da5454",
+            activebackground="white",
+            width=10,
+            height=3,
+            font="Bahnschrift",
+            text="Zurück",
+            command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
+        )
+
+        self.frm_main.grid(
+            column=0, row=0
+        )
+        lbl_welcome.grid(
+            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+        )
+        btn_back.grid(
+            column=1, row=0, padx=10
         )
 
 
