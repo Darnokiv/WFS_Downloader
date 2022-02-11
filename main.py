@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import filedialog
 
 
 class RootWindow:
@@ -107,6 +108,8 @@ class Variante1(RootWindow):
         super(RootWindow).__init__()
 
         self.root_window = root_window
+        self.ent_source = None
+        self.ent_target = None
         self.variante1_gui()
         self.root_window.mainloop()
 
@@ -131,15 +134,150 @@ class Variante1(RootWindow):
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
+        frm_fileselection = tk.Frame(
+            master=self.frm_main
+        )
+
+        frm_source = tk.Frame(
+            master=frm_fileselection,
+            relief="groove",
+            borderwidth=2
+        )
+        lbl_open = tk.Label(
+            master=frm_source,
+            font="Bahnschrift 15",
+            text="Quelle"
+        )
+        lbl_source = tk.Label(
+            master=frm_source,
+            font="Bahnschrift",
+            text="Dateipfad:"
+        )
+        self.ent_source = tk.Entry(
+            master=frm_source,
+            bg="white",
+            selectbackground="#0078D7",
+            selectforeground="white",
+            width=78,
+            font="Bahnschrift",
+        )
+        btn_open = tk.Button(
+            master=frm_source,
+            bg="#afd4f1",
+            activebackground="#afd4f1",
+            font="Bahnschrift",
+            text="Auswählen",
+            command=lambda: [self.open_file()]
+        )
+
+        frm_target = tk.Frame(
+            master=frm_fileselection,
+            relief="groove",
+            borderwidth=2
+        )
+        lbl_save = tk.Label(
+            master=frm_target,
+            font="Bahnschrift 15",
+            text="Ziel"
+        )
+        lbl_target = tk.Label(
+            master=frm_target,
+            font="Bahnschrift",
+            text="Ordnerpfad:"
+        )
+        self.ent_target = tk.Entry(
+            master=frm_target,
+            bg="white",
+            selectbackground="#0078D7",
+            selectforeground="white",
+            width=78,
+            font="Bahnschrift",
+        )
+        btn_save = tk.Button(
+            master=frm_target,
+            bg="#afd4f1",
+            activebackground="#afd4f1",
+            font="Bahnschrift",
+            text="Auswählen",
+            command=lambda: [self.save_file()]
+        )
+
+        btn_start = tk.Button(
+            master=self.frm_main,
+            height=3,
+            width=10,
+            bg="#afd4f1",
+            activebackground="#afd4f1",
+            font="Bahnschrift",
+            text="Start",
+            command=lambda: [self.start()]
+        )
+
         self.frm_main.grid(
             column=0, row=0
         )
         lbl_welcome.grid(
-            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+            column=1, row=0, columnspan=6, rowspan=2, padx=0, pady=35
         )
         btn_back.grid(
-            column=1, row=0, padx=10
+            column=0, row=0, padx=0, pady=40
         )
+
+        frm_fileselection.grid(
+            column=0, row=2, columnspan=10, rowspan=3, padx=40
+        )
+
+        frm_source.grid(
+            column=0, row=3, pady=20
+        )
+        lbl_open.grid(
+            column=0, row=0, pady=4
+        )
+        lbl_source.grid(
+            column=0, row=1, padx=4, pady=4
+        )
+        self.ent_source.grid(
+            column=1, row=1, columnspan=10, padx=4, pady=4
+        )
+        btn_open.grid(
+            column=0, row=2, padx=4, pady=4
+        )
+
+        frm_target.grid(
+            column=0, row=4, pady=20
+        )
+        lbl_save.grid(
+            column=0, row=0, pady=4
+        )
+        lbl_target.grid(
+            column=0, row=1, padx=4, pady=4
+        )
+        self.ent_target.grid(
+            column=1, row=1, columnspan=10, padx=4, pady=4
+        )
+        btn_save.grid(
+            column=0, row=2, padx=4, pady=4
+        )
+
+        btn_start.grid(
+            column=8, row=5, padx=20, pady=20
+        )
+
+    def open_file(self):
+        source = tk.filedialog.askopenfilename()
+        self.ent_source.delete(0, tk.END)
+        self.ent_source.insert(0, source)
+
+    def save_file(self):
+        target = tk.filedialog.askdirectory()
+        self.ent_target.delete(0, tk.END)
+        self.ent_target.insert(0, target)
+
+    def start(self):
+        source = self.ent_source.get()
+        target = self.ent_target.get()
+
+        # Funktion die ausgeführt werden soll
 
 
 class Variante2(RootWindow):
