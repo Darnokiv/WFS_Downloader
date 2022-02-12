@@ -284,16 +284,16 @@ class Variante1(RootWindow):
         btn_start = tk.Button(
             master=self.frm_main,
             height=3,
-            width=10,
+            width=15,
             bg="#afd4f1",
             activebackground="#afd4f1",
-            font="Bahnschrift",
+            font="Bahnschrift 15",
             text="Start",
             command=lambda: [self.start()]
         )
 
         btn_start.grid(
-            column=8, row=5, padx=20, pady=20
+            column=8, row=5, padx=25, pady=25
         )
 
     def open_file(self):
