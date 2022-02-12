@@ -15,7 +15,7 @@ class RootWindow:
         """
 
         self.root_window = tk.Tk()
-        self.root_window.title(f"GIS Downloader - Stiftung Rheinische Kulturlandschaft (Nur Intern verwenden)")
+        self.root_window.title(f"WFS Downloader - Stiftung Rheinische Kulturlandschaft (Nur Intern verwenden)")
         self.root_window.geometry("900x600+120+120")
         self.root_window.resizable(False, False)
         self.root_window.iconphoto(True, tk.PhotoImage(file="srk_logo.png"))
@@ -39,7 +39,7 @@ class RootWindow:
         lbl_welcome = tk.Label(
             master=self.frm_main,
             font="Bahnschrift 30",
-            text="GIS Downloader"
+            text="WFS Downloader"
         )
         btn_variante1 = tk.Button(
             master=self.frm_main,
@@ -48,7 +48,7 @@ class RootWindow:
             width=37,
             height=8,
             font="Bahnschrift 15",
-            text="Variante 1",
+            text="Flurstücksabfrage mit Tabelle",
             command=lambda: [self.frm_main.destroy(), Variante1(self.root_window)]
         )
         btn_variante2 = tk.Button(
