@@ -224,7 +224,7 @@ class Variante1(RootWindow):
         )
 
         frm_fileselection.grid(
-            column=0, row=2, columnspan=10, rowspan=3, padx=40
+            column=1, row=2, columnspan=10, rowspan=3, padx=40
         )
 
         frm_source.grid(
@@ -314,10 +314,10 @@ class Variante2(RootWindow):
             column=0, row=0
         )
         lbl_welcome.grid(
-            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+            column=1, row=0, columnspan=6, rowspan=2, padx=200, pady=35
         )
         btn_back.grid(
-            column=1, row=0, padx=10
+            column=0, row=0, columnspan=2, rowspan=1, padx=10, pady=0
         )
 
 
@@ -355,10 +355,10 @@ class Variante3(RootWindow):
             column=0, row=0
         )
         lbl_welcome.grid(
-            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+            column=1, row=0, columnspan=6, rowspan=2, padx=200, pady=35
         )
         btn_back.grid(
-            column=1, row=0, padx=10
+            column=0, row=0, columnspan=2, rowspan=1, padx=10, pady=0
         )
 
 
@@ -396,10 +396,10 @@ class Variante4(RootWindow):
             column=0, row=0
         )
         lbl_welcome.grid(
-            column=2, row=0, columnspan=10, rowspan=2, padx=230, pady=35
+            column=1, row=0, columnspan=6, rowspan=2, padx=200, pady=35
         )
         btn_back.grid(
-            column=1, row=0, padx=10
+            column=0, row=0, columnspan=2, rowspan=1, padx=10, pady=0
         )
 
 
