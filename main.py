@@ -9,15 +9,9 @@ class RootWindow:
 
     def __init__(self):
         """
-        Creates the root window
+        Creates the root window and calls the GUI functions in this class
 
-        Parameter
-        ---------
-        None
-
-        Returns
-        -------
-        None
+        @param self
         """
 
         self.root_window = tk.Tk()
@@ -31,6 +25,12 @@ class RootWindow:
         self.root_window.mainloop()
 
     def root_gui(self):
+        """
+        Creates the GUI of the root window and
+        the buttons to choose the variant
+
+        @param self
+        """
         self.frm_main.destroy()
 
         self.frm_main = tk.Frame(
@@ -103,17 +103,37 @@ class RootWindow:
 
 
 class Variante1(RootWindow):
+    """
+    Creates the GUI for variant 1 and calls the needed functions to execute
+
+    Subclass of "RootWindow"
+    """
 
     def __init__(self, root_window):
+        """
+        Calls the GUI functions in this class
+
+        @param self
+        @param root_window
+        """
+
         super(RootWindow).__init__()
 
         self.root_window = root_window
         self.ent_source = None
         self.ent_target = None
-        self.variante1_gui()
+        self.title_gui()
+        self.selection_gui()
+        self.start_gui()
         self.root_window.mainloop()
 
-    def variante1_gui(self):
+    def title_gui(self):
+        """
+        Creates the main frame and
+        the title bar (Title and Back-Button)
+
+        @param self
+        """
 
         self.frm_main = tk.Frame(
             master=self.root_window
@@ -134,6 +154,23 @@ class Variante1(RootWindow):
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
+        self.frm_main.grid(
+            column=0, row=0
+        )
+        lbl_welcome.grid(
+            column=1, row=0, columnspan=6, rowspan=2, padx=200, pady=35
+        )
+        btn_back.grid(
+            column=0, row=0, columnspan=2, rowspan=1, padx=10, pady=0
+        )
+
+    def selection_gui(self):
+        """
+        Creates the GUI to choose the source filepath and
+        the target directory path
+
+        @param self
+        """
         frm_fileselection = tk.Frame(
             master=self.frm_main
         )
@@ -202,27 +239,6 @@ class Variante1(RootWindow):
             command=lambda: [self.save_file()]
         )
 
-        btn_start = tk.Button(
-            master=self.frm_main,
-            height=3,
-            width=10,
-            bg="#afd4f1",
-            activebackground="#afd4f1",
-            font="Bahnschrift",
-            text="Start",
-            command=lambda: [self.start()]
-        )
-
-        self.frm_main.grid(
-            column=0, row=0
-        )
-        lbl_welcome.grid(
-            column=1, row=0, columnspan=6, rowspan=2, padx=0, pady=35
-        )
-        btn_back.grid(
-            column=0, row=0, padx=0, pady=40
-        )
-
         frm_fileselection.grid(
             column=1, row=2, columnspan=10, rowspan=3, padx=40
         )
@@ -259,37 +275,99 @@ class Variante1(RootWindow):
             column=0, row=2, padx=4, pady=4
         )
 
+    def start_gui(self):
+        """
+        Creates the button to call "start()"
+
+        @param self
+        """
+        btn_start = tk.Button(
+            master=self.frm_main,
+            height=3,
+            width=10,
+            bg="#afd4f1",
+            activebackground="#afd4f1",
+            font="Bahnschrift",
+            text="Start",
+            command=lambda: [self.start()]
+        )
+
         btn_start.grid(
             column=8, row=5, padx=20, pady=20
         )
 
     def open_file(self):
-        source = tk.filedialog.askopenfilename()
+        """
+        Function to choose the source file.
+
+        Opens the Explorer to select a file,
+        clears "self.ent_target" and
+        inserts the selected directory into "self.ent_target"
+
+        @param self
+        """
+        source = tk.filedialog.askopenfilename(filetypes=[("Excel files", ".xlsx .xls")])
         self.ent_source.delete(0, tk.END)
         self.ent_source.insert(0, source)
 
     def save_file(self):
+        """
+        Function to choose the save directory.
+
+        Opens the Explorer to select a directory,
+        clears "self.ent_target" and
+        inserts the selected directory into "self.ent_target"
+
+        @param self
+        """
         target = tk.filedialog.askdirectory()
         self.ent_target.delete(0, tk.END)
         self.ent_target.insert(0, target)
 
     def start(self):
+        """
+        Starts the main process.
+
+        Gets the strings in "self.ent_source" and "self.ent_target" and
+        assigns these strings to the respective variables "source" and "target"
+
+        @param self
+        """
+        # Parameters for function
+        # Puts the paths into the variables
         source = self.ent_source.get()
         target = self.ent_target.get()
 
-        # Funktion die ausgeführt werden soll
+        # function to be executed
 
 
 class Variante2(RootWindow):
+    """
+    Creates the GUI for variant 2 and calls the needed functions to execute
+
+    Subclass of "RootWindow"
+    """
 
     def __init__(self, root_window):
+        """
+        Calls the GUI functions in this class
+
+        @param self
+        @param root_window
+        """
         super(RootWindow).__init__()
 
         self.root_window = root_window
-        self.variante2_gui()
+        self.title_gui()
         self.root_window.mainloop()
 
-    def variante2_gui(self):
+    def title_gui(self):
+        """
+        Creates the main frame and
+        the title bar (Title and Back-Button)
+
+        @param self
+        """
 
         self.frm_main = tk.Frame(
             master=self.root_window
@@ -322,15 +400,32 @@ class Variante2(RootWindow):
 
 
 class Variante3(RootWindow):
+    """
+    Creates the GUI for variant 3 and calls the needed functions to execute
+
+    Subclass of "RootWindow"
+    """
 
     def __init__(self, root_window):
+        """
+        Calls the GUI functions in this class
+
+        @param self
+        @param root_window
+        """
         super(RootWindow).__init__()
 
         self.root_window = root_window
-        self.variante3_gui()
+        self.title_gui()
         self.root_window.mainloop()
 
-    def variante3_gui(self):
+    def title_gui(self):
+        """
+        Creates the main frame and
+        the title bar (Title and Back-Button)
+
+        @param self
+        """
 
         self.frm_main = tk.Frame(
             master=self.root_window
@@ -363,15 +458,32 @@ class Variante3(RootWindow):
 
 
 class Variante4(RootWindow):
+    """
+    Creates the GUI for variant 4 and calls the needed functions to execute
+
+    Subclass of "RootWindow"
+    """
 
     def __init__(self, root_window):
+        """
+        Calls the GUI functions in this class
+
+        @param self
+        @param root_window
+        """
         super(RootWindow).__init__()
 
         self.root_window = root_window
-        self.variante4_gui()
+        self.title_gui()
         self.root_window.mainloop()
 
-    def variante4_gui(self):
+    def title_gui(self):
+        """
+        Creates the main frame and
+        the title bar (Title and Back-Button)
+
+        @param self
+        """
 
         self.frm_main = tk.Frame(
             master=self.root_window
