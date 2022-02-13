@@ -24,7 +24,8 @@ class RootWindow:
 {Settings().get_main("window_title", "window_title")}"""
         )
         self.root_window.geometry(Settings().get_main("geometry", "geometry"))
-        self.root_window.resizable(False, False)
+        self.root_window.resizable(True, True)
+        self.root_window.minsize(600, 400)
         self.root_window.iconphoto(True, tk.PhotoImage(file=Settings().get_main("icon", "icon")))
         self.root_window.tk_setPalette(background=Settings().get_color("standard", "background"))
         self.frm_main = tk.Frame()
@@ -43,69 +44,77 @@ class RootWindow:
         self.frm_main = tk.Frame(
             master=self.root_window
         )
+
+        frm_title = tk.Frame(
+            master=self.frm_main
+        )
         lbl_welcome = tk.Label(
-            master=self.frm_main,
+            master=frm_title,
             font=Settings().get_font("big"),
             text=Settings().get_main("program_name", "program_name")
         )
+
+        frm_buttons = tk.Frame(
+            master=self.frm_main
+        )
         btn_variante1 = tk.Button(
-            master=self.frm_main,
+            master=frm_buttons,
             background=Settings().get_color("button", "background"),
             activebackground=Settings().get_color("button", "activebackground"),
-            width=Settings().get_size("variant_button", "width"),
-            height=Settings().get_size("variant_button", "height"),
             font=Settings().get_font("normal"),
             text=Settings().get_text("variant_1"),
             command=lambda: [self.frm_main.destroy(), Variante1(self.root_window)]
         )
         btn_variante2 = tk.Button(
-            master=self.frm_main,
+            master=frm_buttons,
             background=Settings().get_color("button", "background"),
             activebackground=Settings().get_color("button", "activebackground"),
-            width=Settings().get_size("variant_button", "width"),
-            height=Settings().get_size("variant_button", "height"),
             font=Settings().get_font("normal"),
             text=Settings().get_text("variant_2"),
             command=lambda: [self.frm_main.destroy(), Variante2(self.root_window)]
         )
         btn_variante3 = tk.Button(
-            master=self.frm_main,
+            master=frm_buttons,
             background=Settings().get_color("button", "background"),
             activebackground=Settings().get_color("button", "activebackground"),
-            width=Settings().get_size("variant_button", "width"),
-            height=Settings().get_size("variant_button", "height"),
             font=Settings().get_font("normal"),
             text=Settings().get_text("variant_3"),
             command=lambda: [self.frm_main.destroy(), Variante3(self.root_window)]
         )
         btn_variante4 = tk.Button(
-            master=self.frm_main,
+            master=frm_buttons,
             background=Settings().get_color("button", "background"),
             activebackground=Settings().get_color("button", "activebackground"),
-            width=Settings().get_size("variant_button", "width"),
-            height=Settings().get_size("variant_button", "height"),
             font=Settings().get_font("normal"),
             text=Settings().get_text("variant_4"),
             command=lambda: [self.frm_main.destroy(), Variante4(self.root_window)]
         )
 
-        self.frm_main.grid(
-            column=0, row=0
+        self.frm_main.place(
+            relx=0.5, rely=0.5, relwidth=1, relheight=1, anchor="center"
         )
-        lbl_welcome.grid(
-            column=2, row=0, columnspan=10, rowspan=2, padx=300, pady=35
+
+        frm_title.place(
+            relx=0.5, rely=0.02, relwidth=1, relheight=0.1, anchor="n"
         )
-        btn_variante1.grid(
-            column=2, row=2, padx=20, pady=20
+        lbl_welcome.place(
+            relx=0, rely=0, relwidth=1, relheight=1
         )
-        btn_variante2.grid(
-            column=3, row=2
+
+        frm_buttons.place(
+            relx=0.5, rely=0.55, relwidth=0.9, relheight=0.8, anchor="center"
         )
-        btn_variante3.grid(
-            column=2, row=3
+        btn_variante1.place(
+            relx=0, rely=0, relwidth=0.49, relheight=0.49, anchor="nw"
         )
-        btn_variante4.grid(
-            column=3, row=3
+        btn_variante2.place(
+            relx=1, rely=0, relwidth=0.49, relheight=0.49, anchor="ne"
+        )
+        btn_variante3.place(
+            relx=0, rely=1, relwidth=0.49, relheight=0.49, anchor="sw"
+        )
+        btn_variante4.place(
+            relx=1, rely=1, relwidth=0.49, relheight=0.49, anchor="se"
         )
 
 
@@ -142,30 +151,38 @@ class Variante1(RootWindow):
         self.frm_main = tk.Frame(
             master=self.root_window
         )
+
+        frm_title = tk.Frame(
+            master=self.frm_main
+        )
         lbl_welcome = tk.Label(
-            master=self.frm_main,
+            master=frm_title,
             font=Settings().get_font("big"),
             text=Settings().get_text("variant_1")
         )
+
         btn_back = tk.Button(
             master=self.frm_main,
             background=Settings().get_color("back_button", "background"),
             activebackground=Settings().get_color("back_button", "activebackground"),
-            width=Settings().get_size("back_button", "width"),
-            height=Settings().get_size("back_button", "height"),
             font=Settings().get_font("small"),
             text=Settings().get_text("back_button"),
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
-        self.frm_main.grid(
-            column=0, row=0
+        self.frm_main.place(
+            relx=0.5, rely=0.5, relwidth=1, relheight=1, anchor="center"
         )
-        lbl_welcome.grid(
-            column=1, row=0, columnspan=6, rowspan=1, padx=200, pady=35
+
+        frm_title.place(
+            relx=0.5, rely=0.05, relwidth=1, relheight=0.1, anchor="n"
         )
+        lbl_welcome.place(
+            relx=0, rely=0, relwidth=1, relheight=1
+        )
+
         btn_back.place(
-            x=10, y=10
+            x=10, y=10, relwidth=0.1, relheight=0.1
         )
 
     def selection_gui(self):
@@ -179,12 +196,12 @@ class Variante1(RootWindow):
 
         frm_source = tk.Frame(
             master=frm_fileselection,
-            relief=Settings().get_relief("file_frame", "relief"),
-            borderwidth=Settings().get_relief("file_frame", "borderwidth")
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
         )
         lbl_open = tk.Label(
             master=frm_source,
-            font=Settings().get_font("normal"),
+            font=Settings().get_font("normal_underlined"),
             text=Settings().get_text("source_title_label")
         )
         lbl_source = tk.Label(
@@ -197,7 +214,6 @@ class Variante1(RootWindow):
             background=Settings().get_color("entry", "background"),
             selectbackground=Settings().get_color("entry", "selectbackground"),
             selectforeground=Settings().get_color("entry", "selectforeground"),
-            width=Settings().get_size("file_entry", "width"),
             font=Settings().get_font("small"),
         )
         btn_open = tk.Button(
@@ -211,12 +227,12 @@ class Variante1(RootWindow):
 
         frm_target = tk.Frame(
             master=frm_fileselection,
-            relief=Settings().get_relief("file_frame", "relief"),
-            borderwidth=Settings().get_relief("file_frame", "borderwidth")
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
         )
         lbl_save = tk.Label(
             master=frm_target,
-            font=Settings().get_font("normal"),
+            font=Settings().get_font("normal_underlined"),
             text=Settings().get_text("target_title_label")
         )
         lbl_target = tk.Label(
@@ -229,7 +245,6 @@ class Variante1(RootWindow):
             background=Settings().get_color("entry", "background"),
             selectbackground=Settings().get_color("entry", "selectbackground"),
             selectforeground=Settings().get_color("entry", "selectforeground"),
-            width=Settings().get_size("file_entry", "width"),
             font=Settings().get_font("small"),
         )
         btn_save = tk.Button(
@@ -241,40 +256,40 @@ class Variante1(RootWindow):
             command=lambda: [self.save_file()]
         )
 
-        frm_fileselection.grid(
-            column=0, row=1, columnspan=6, rowspan=3, padx=40
+        frm_fileselection.place(
+            relx=0.5, rely=0.5, relwidth=0.85, relheight=0.5, anchor="center"
         )
 
-        frm_source.grid(
-            column=0, row=2, pady=20
+        frm_source.place(
+            relx=0, rely=0, relwidth=1, relheight=0.45, anchor="nw"
         )
-        lbl_open.grid(
-            column=0, row=0, pady=4
+        lbl_open.place(
+            relx=0.01, rely=0.1, relwidth=0.2, relheight=0.2, anchor="nw"
         )
-        lbl_source.grid(
-            column=0, row=1, padx=4, pady=4
+        lbl_source.place(
+            relx=0.01, rely=0.5, relwidth=0.2, relheight=0.2, anchor="w"
         )
-        self.ent_source.grid(
-            column=1, row=1, columnspan=10, padx=4, pady=4
+        self.ent_source.place(
+            relx=0.99, rely=0.5, relwidth=0.79, height=25, anchor="e"
         )
-        btn_open.grid(
-            column=0, row=2, padx=4, pady=4
+        btn_open.place(
+            relx=0.01, rely=0.9, relwidth=0.2, relheight=0.2, anchor="sw"
         )
 
-        frm_target.grid(
-            column=0, row=3, pady=20
+        frm_target.place(
+            relx=0, rely=1, relwidth=1, relheight=0.45, anchor="sw"
         )
-        lbl_save.grid(
-            column=0, row=0, pady=4
+        lbl_save.place(
+            relx=0.01, rely=0.1, relwidth=0.2, relheight=0.2, anchor="nw"
         )
-        lbl_target.grid(
-            column=0, row=1, padx=4, pady=4
+        lbl_target.place(
+            relx=0.01, rely=0.5, relwidth=0.2, relheight=0.2, anchor="w"
         )
-        self.ent_target.grid(
-            column=1, row=1, columnspan=10, padx=4, pady=4
+        self.ent_target.place(
+            relx=0.99, rely=0.5, relwidth=0.79, height=25, anchor="e"
         )
-        btn_save.grid(
-            column=0, row=2, padx=4, pady=4
+        btn_save.place(
+            relx=0.01, rely=0.9, relwidth=0.2, relheight=0.2, anchor="sw"
         )
 
     def start_gui(self):
@@ -284,8 +299,6 @@ class Variante1(RootWindow):
 
         btn_start = tk.Button(
             master=self.frm_main,
-            height=Settings().get_size("start_button", "height"),
-            width=Settings().get_size("start_button", "width"),
             background=Settings().get_color("button", "background"),
             activebackground=Settings().get_color("button", "activebackground"),
             font=Settings().get_font("normal"),
@@ -293,8 +306,8 @@ class Variante1(RootWindow):
             command=lambda: [self.start()]
         )
 
-        btn_start.grid(
-            column=5, row=4, padx=25, pady=25
+        btn_start.place(
+            relx=0.99, rely=0.99, relwidth=0.2, relheight=0.2, anchor="se"
         )
 
     def open_file(self):
@@ -341,15 +354,16 @@ class Variante1(RootWindow):
         if s is False and t is True:
             tk.messagebox.showerror(Settings().get_error("error_101", "title"),
                                     Settings().get_error("error_101", "text"))
+        elif s is False and t is False:
+            tk.messagebox.showerror(Settings().get_error("error_103", "title"),
+                                    Settings().get_error("error_103", "text"))
+
         elif not os.path.splitext(source)[-1].lower() == ".xlsx" or os.path.splitext(source)[-1].lower() == ".xls":
             tk.messagebox.showerror(Settings().get_error("error_111", "title"),
                                     Settings().get_error("error_111", "text"))
         elif s is True and t is False:
             tk.messagebox.showerror(Settings().get_error("error_102", "title"),
                                     Settings().get_error("error_102", "text"))
-        elif s is False and t is False:
-            tk.messagebox.showerror(Settings().get_error("error_103", "title"),
-                                    Settings().get_error("error_103", "text"))
         else:
             # function to be executed
             tk.messagebox.showinfo("In Arbeit", "In Arbeit")
@@ -370,8 +384,12 @@ class Variante2(RootWindow):
         """
         super(RootWindow).__init__()
 
+        self.ent_target = None
+
         self.root_window = root_window
         self.title_gui()
+        self.selection_gui()
+        self.start_gui()
         self.root_window.mainloop()
 
     def title_gui(self):
@@ -383,31 +401,160 @@ class Variante2(RootWindow):
         self.frm_main = tk.Frame(
             master=self.root_window
         )
+
+        frm_title = tk.Frame(
+            master=self.frm_main
+        )
         lbl_welcome = tk.Label(
-            master=self.frm_main,
+            master=frm_title,
             font=Settings().get_font("big"),
             text=Settings().get_text("variant_2")
         )
+
         btn_back = tk.Button(
             master=self.frm_main,
             background=Settings().get_color("back_button", "background"),
             activebackground=Settings().get_color("back_button", "activebackground"),
-            width=Settings().get_size("back_button", "width"),
-            height=Settings().get_size("back_button", "height"),
             font=Settings().get_font("small"),
             text=Settings().get_text("back_button"),
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
-        self.frm_main.grid(
-            column=0, row=0
+        self.frm_main.place(
+            relx=0.5, rely=0.5, relwidth=1, relheight=1, anchor="center"
         )
-        lbl_welcome.grid(
-            column=1, row=0, columnspan=6, rowspan=1, padx=200, pady=35
+
+        frm_title.place(
+            relx=0.5, rely=0.05, relwidth=1, relheight=0.1, anchor="n"
         )
+        lbl_welcome.place(
+            relx=0, rely=0, relwidth=1, relheight=1
+        )
+
         btn_back.place(
-            x=10, y=10
+            x=10, y=10, relwidth=0.1, relheight=0.1
         )
+
+    def selection_gui(self):
+        """
+        Creates the GUI to choose the target directory path
+        """
+        frm_fileselection = tk.Frame(
+            master=self.frm_main
+        )
+
+        frm_source = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+
+        frm_target = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+        lbl_save = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("normal_underlined"),
+            text=Settings().get_text("target_title_label")
+        )
+        lbl_target = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("small"),
+            text=Settings().get_text("target_entry_label")
+        )
+        self.ent_target = tk.Entry(
+            master=frm_target,
+            background=Settings().get_color("entry", "background"),
+            selectbackground=Settings().get_color("entry", "selectbackground"),
+            selectforeground=Settings().get_color("entry", "selectforeground"),
+            font=Settings().get_font("small"),
+        )
+        btn_save = tk.Button(
+            master=frm_target,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("small"),
+            text=Settings().get_text("explorer_button"),
+            command=lambda: [self.save_file()]
+        )
+
+        frm_fileselection.place(
+            relx=0.5, rely=0.5, relwidth=0.85, relheight=0.5, anchor="center"
+        )
+
+        frm_source.place(
+            relx=0, rely=0, relwidth=1, relheight=0.45, anchor="nw"
+        )
+
+        frm_target.place(
+            relx=0, rely=1, relwidth=1, relheight=0.45, anchor="sw"
+        )
+        lbl_save.place(
+            relx=0.01, rely=0.1, relwidth=0.2, relheight=0.2, anchor="nw"
+        )
+        lbl_target.place(
+            relx=0.01, rely=0.5, relwidth=0.2, relheight=0.2, anchor="w"
+        )
+        self.ent_target.place(
+            relx=0.99, rely=0.5, relwidth=0.79, height=25, anchor="e"
+        )
+        btn_save.place(
+            relx=0.01, rely=0.9, relwidth=0.2, relheight=0.2, anchor="sw"
+        )
+
+    def start_gui(self):
+        """
+        Creates the button to call "start()"
+        """
+
+        btn_start = tk.Button(
+            master=self.frm_main,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("normal"),
+            text=Settings().get_text("start_button"),
+            command=lambda: [self.start()]
+        )
+
+        btn_start.place(
+            relx=0.99, rely=0.99, relwidth=0.2, relheight=0.2, anchor="se"
+        )
+
+    def save_file(self):
+        """
+        Function to choose the save directory.
+
+        Opens the Explorer to select a directory,
+        clears "self.ent_target" and
+        inserts the selected directory into "self.ent_target"
+        """
+        target = tk.filedialog.askdirectory()
+        self.ent_target.delete(0, tk.END)
+        self.ent_target.insert(0, target)
+
+    def start(self):
+        """
+        Starts the main process.
+
+        Gets the string "self.ent_target",
+        assigns this string to the variable "target",
+        checks if there are errors (gives an error message if necessary) and
+        calls the main process.
+        """
+        # Parameters for function
+        # Puts the path into the variable
+        target = self.ent_target.get()
+
+        t = os.path.isdir(target)
+
+        if t is False:
+            tk.messagebox.showerror(Settings().get_error("error_102", "title"),
+                                    Settings().get_error("error_102", "text"))
+        else:
+            # function to be executed
+            tk.messagebox.showinfo("In Arbeit", "In Arbeit")
 
 
 class Variante3(RootWindow):
@@ -425,8 +572,12 @@ class Variante3(RootWindow):
         """
         super(RootWindow).__init__()
 
+        self.ent_target = None
+
         self.root_window = root_window
         self.title_gui()
+        self.selection_gui()
+        self.start_gui()
         self.root_window.mainloop()
 
     def title_gui(self):
@@ -438,31 +589,160 @@ class Variante3(RootWindow):
         self.frm_main = tk.Frame(
             master=self.root_window
         )
+
+        frm_title = tk.Frame(
+            master=self.frm_main
+        )
         lbl_welcome = tk.Label(
-            master=self.frm_main,
+            master=frm_title,
             font=Settings().get_font("big"),
             text=Settings().get_text("variant_3")
         )
+
         btn_back = tk.Button(
             master=self.frm_main,
             background=Settings().get_color("back_button", "background"),
             activebackground=Settings().get_color("back_button", "activebackground"),
-            width=Settings().get_size("back_button", "width"),
-            height=Settings().get_size("back_button", "height"),
             font=Settings().get_font("small"),
             text=Settings().get_text("back_button"),
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
-        self.frm_main.grid(
-            column=0, row=0
+        self.frm_main.place(
+            relx=0.5, rely=0.5, relwidth=1, relheight=1, anchor="center"
         )
-        lbl_welcome.grid(
-            column=1, row=0, columnspan=6, rowspan=1, padx=200, pady=35
+
+        frm_title.place(
+            relx=0.5, rely=0.05, relwidth=1, relheight=0.1, anchor="n"
         )
+        lbl_welcome.place(
+            relx=0, rely=0, relwidth=1, relheight=1
+        )
+
         btn_back.place(
-            x=10, y=10
+            x=10, y=10, relwidth=0.1, relheight=0.1
         )
+
+    def selection_gui(self):
+        """
+        Creates the GUI to choose the target directory path
+        """
+        frm_fileselection = tk.Frame(
+            master=self.frm_main
+        )
+
+        frm_source = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+
+        frm_target = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+        lbl_save = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("normal_underlined"),
+            text=Settings().get_text("target_title_label")
+        )
+        lbl_target = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("small"),
+            text=Settings().get_text("target_entry_label")
+        )
+        self.ent_target = tk.Entry(
+            master=frm_target,
+            background=Settings().get_color("entry", "background"),
+            selectbackground=Settings().get_color("entry", "selectbackground"),
+            selectforeground=Settings().get_color("entry", "selectforeground"),
+            font=Settings().get_font("small"),
+        )
+        btn_save = tk.Button(
+            master=frm_target,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("small"),
+            text=Settings().get_text("explorer_button"),
+            command=lambda: [self.save_file()]
+        )
+
+        frm_fileselection.place(
+            relx=0.5, rely=0.5, relwidth=0.85, relheight=0.5, anchor="center"
+        )
+
+        frm_source.place(
+            relx=0, rely=0, relwidth=1, relheight=0.45, anchor="nw"
+        )
+
+        frm_target.place(
+            relx=0, rely=1, relwidth=1, relheight=0.45, anchor="sw"
+        )
+        lbl_save.place(
+            relx=0.01, rely=0.1, relwidth=0.2, relheight=0.2, anchor="nw"
+        )
+        lbl_target.place(
+            relx=0.01, rely=0.5, relwidth=0.2, relheight=0.2, anchor="w"
+        )
+        self.ent_target.place(
+            relx=0.99, rely=0.5, relwidth=0.79, height=25, anchor="e"
+        )
+        btn_save.place(
+            relx=0.01, rely=0.9, relwidth=0.2, relheight=0.2, anchor="sw"
+        )
+
+    def start_gui(self):
+        """
+        Creates the button to call "start()"
+        """
+
+        btn_start = tk.Button(
+            master=self.frm_main,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("normal"),
+            text=Settings().get_text("start_button"),
+            command=lambda: [self.start()]
+        )
+
+        btn_start.place(
+            relx=0.99, rely=0.99, relwidth=0.2, relheight=0.2, anchor="se"
+        )
+
+    def save_file(self):
+        """
+        Function to choose the save directory.
+
+        Opens the Explorer to select a directory,
+        clears "self.ent_target" and
+        inserts the selected directory into "self.ent_target"
+        """
+        target = tk.filedialog.askdirectory()
+        self.ent_target.delete(0, tk.END)
+        self.ent_target.insert(0, target)
+
+    def start(self):
+        """
+        Starts the main process.
+
+        Gets the string "self.ent_target",
+        assigns this string to the variable "target",
+        checks if there are errors (gives an error message if necessary) and
+        calls the main process.
+        """
+        # Parameters for function
+        # Puts the path into the variable
+        target = self.ent_target.get()
+
+        t = os.path.isdir(target)
+
+        if t is False:
+            tk.messagebox.showerror(Settings().get_error("error_102", "title"),
+                                    Settings().get_error("error_102", "text"))
+        else:
+            # function to be executed
+            tk.messagebox.showinfo("In Arbeit", "In Arbeit")
 
 
 class Variante4(RootWindow):
@@ -480,8 +760,12 @@ class Variante4(RootWindow):
         """
         super(RootWindow).__init__()
 
+        self.ent_target = None
+
         self.root_window = root_window
         self.title_gui()
+        self.selection_gui()
+        self.start_gui()
         self.root_window.mainloop()
 
     def title_gui(self):
@@ -493,31 +777,160 @@ class Variante4(RootWindow):
         self.frm_main = tk.Frame(
             master=self.root_window
         )
+
+        frm_title = tk.Frame(
+            master=self.frm_main
+        )
         lbl_welcome = tk.Label(
-            master=self.frm_main,
+            master=frm_title,
             font=Settings().get_font("big"),
             text=Settings().get_text("variant_4")
         )
+
         btn_back = tk.Button(
             master=self.frm_main,
             background=Settings().get_color("back_button", "background"),
             activebackground=Settings().get_color("back_button", "activebackground"),
-            width=Settings().get_size("back_button", "width"),
-            height=Settings().get_size("back_button", "height"),
             font=Settings().get_font("small"),
             text=Settings().get_text("back_button"),
             command=lambda: [self.frm_main.destroy(), RootWindow.root_gui(self)]
         )
 
-        self.frm_main.grid(
-            column=0, row=0
+        self.frm_main.place(
+            relx=0.5, rely=0.5, relwidth=1, relheight=1, anchor="center"
         )
-        lbl_welcome.grid(
-            column=1, row=0, columnspan=6, rowspan=1, padx=200, pady=35
+
+        frm_title.place(
+            relx=0.5, rely=0.05, relwidth=1, relheight=0.1, anchor="n"
         )
+        lbl_welcome.place(
+            relx=0, rely=0, relwidth=1, relheight=1
+        )
+
         btn_back.place(
-            x=10, y=10
+            x=10, y=10, relwidth=0.1, relheight=0.1
         )
+
+    def selection_gui(self):
+        """
+        Creates the GUI to choose the target directory path
+        """
+        frm_fileselection = tk.Frame(
+            master=self.frm_main
+        )
+
+        frm_source = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+
+        frm_target = tk.Frame(
+            master=frm_fileselection,
+            relief=Settings().get_relief("file_frame"),
+            borderwidth=Settings().get_size("relief", "borderwidth")
+        )
+        lbl_save = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("normal_underlined"),
+            text=Settings().get_text("target_title_label")
+        )
+        lbl_target = tk.Label(
+            master=frm_target,
+            font=Settings().get_font("small"),
+            text=Settings().get_text("target_entry_label")
+        )
+        self.ent_target = tk.Entry(
+            master=frm_target,
+            background=Settings().get_color("entry", "background"),
+            selectbackground=Settings().get_color("entry", "selectbackground"),
+            selectforeground=Settings().get_color("entry", "selectforeground"),
+            font=Settings().get_font("small"),
+        )
+        btn_save = tk.Button(
+            master=frm_target,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("small"),
+            text=Settings().get_text("explorer_button"),
+            command=lambda: [self.save_file()]
+        )
+
+        frm_fileselection.place(
+            relx=0.5, rely=0.5, relwidth=0.85, relheight=0.5, anchor="center"
+        )
+
+        frm_source.place(
+            relx=0, rely=0, relwidth=1, relheight=0.45, anchor="nw"
+        )
+
+        frm_target.place(
+            relx=0, rely=1, relwidth=1, relheight=0.45, anchor="sw"
+        )
+        lbl_save.place(
+            relx=0.01, rely=0.1, relwidth=0.2, relheight=0.2, anchor="nw"
+        )
+        lbl_target.place(
+            relx=0.01, rely=0.5, relwidth=0.2, relheight=0.2, anchor="w"
+        )
+        self.ent_target.place(
+            relx=0.99, rely=0.5, relwidth=0.79, height=25, anchor="e"
+        )
+        btn_save.place(
+            relx=0.01, rely=0.9, relwidth=0.2, relheight=0.2, anchor="sw"
+        )
+
+    def start_gui(self):
+        """
+        Creates the button to call "start()"
+        """
+
+        btn_start = tk.Button(
+            master=self.frm_main,
+            background=Settings().get_color("button", "background"),
+            activebackground=Settings().get_color("button", "activebackground"),
+            font=Settings().get_font("normal"),
+            text=Settings().get_text("start_button"),
+            command=lambda: [self.start()]
+        )
+
+        btn_start.place(
+            relx=0.99, rely=0.99, relwidth=0.2, relheight=0.2, anchor="se"
+        )
+
+    def save_file(self):
+        """
+        Function to choose the save directory.
+
+        Opens the Explorer to select a directory,
+        clears "self.ent_target" and
+        inserts the selected directory into "self.ent_target"
+        """
+        target = tk.filedialog.askdirectory()
+        self.ent_target.delete(0, tk.END)
+        self.ent_target.insert(0, target)
+
+    def start(self):
+        """
+        Starts the main process.
+
+        Gets the string "self.ent_target",
+        assigns this string to the variable "target",
+        checks if there are errors (gives an error message if necessary) and
+        calls the main process.
+        """
+        # Parameters for function
+        # Puts the path into the variable
+        target = self.ent_target.get()
+
+        t = os.path.isdir(target)
+
+        if t is False:
+            tk.messagebox.showerror(Settings().get_error("error_102", "title"),
+                                    Settings().get_error("error_102", "text"))
+        else:
+            # function to be executed
+            tk.messagebox.showinfo("In Arbeit", "In Arbeit")
 
 
 class Settings:
@@ -639,14 +1052,12 @@ class Settings:
 
         return value
 
-    def get_relief(self, item, parameter):
+    def get_relief(self, item):
         """
         Gives settings from the relief category
 
         :param item: item for which the relief is needed (e.g. "file_frame")
         :type item: str
-        :param parameter: which information is needed (e.g. "relief")
-        :type parameter: str
 
         :return: value
         """
@@ -655,7 +1066,7 @@ class Settings:
 
         for group in self.settings_file["relief"]:
             if group["item"] == item:
-                value = group[parameter]
+                value = group["relief"]
                 break
 
         return value

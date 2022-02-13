@@ -54,6 +54,10 @@ settings = {
                 "font": "Bahnschrift 15"
             },
             {
+                "item": "normal_underlined",
+                "font": "Bahnschrift 15 underline"
+            },
+            {
                 "item": "small",
                 "font": "Bahnschrift"
             }
@@ -108,35 +112,20 @@ settings = {
     "size":
         [
             {
-                "item": "variant_button",
-                "width": 37,
-                "height": 8
+                "item": "window_size",
+                "width": 600,
+                "height": 400
             },
             {
-                "item": "back_button",
-                "width": 10,
-                "height": 3
-            },
-            {
-                "item": "file_frame",
+                "item": "relief",
                 "borderwidth": 2
-            },
-            {
-                "item": "file_entry",
-                "width": 78
-            },
-            {
-                "item": "start_button",
-                "width": 15,
-                "height": 3
             }
         ],
     "relief":
         [
             {
                 "item": "file_frame",
-                "relief": "groove",
-                "borderwidth": 2
+                "relief": "groove"
             }
         ],
     "error":
