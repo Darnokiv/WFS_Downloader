@@ -3,6 +3,12 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
+import geopandas as gpd
+import pandas as pd
+import requests
+import time
+from pathlib import Path
+import tempfile
 
 
 class RootWindow:
@@ -354,19 +360,38 @@ class Variante1(RootWindow):
         if s is False and t is True:
             tk.messagebox.showerror(Settings().get_error("error_101", "title"),
                                     Settings().get_error("error_101", "text"))
+            return None
         elif s is False and t is False:
             tk.messagebox.showerror(Settings().get_error("error_103", "title"),
                                     Settings().get_error("error_103", "text"))
-
+            return None
         elif not os.path.splitext(source)[-1].lower() == ".xlsx" or os.path.splitext(source)[-1].lower() == ".xls":
             tk.messagebox.showerror(Settings().get_error("error_111", "title"),
                                     Settings().get_error("error_111", "text"))
+            return None
         elif s is True and t is False:
             tk.messagebox.showerror(Settings().get_error("error_102", "title"),
                                     Settings().get_error("error_102", "text"))
-        else:
-            # function to be executed
-            tk.messagebox.showinfo("In Arbeit", "In Arbeit")
+            return None
+
+        status = Flurstueckskennzeichen().main(source, target)
+        if status == "Done":
+            tk.messagebox.showinfo("Fertig", "Datei wurde erfolgreich erstellt")
+        elif status == "error_201":
+            tk.messagebox.showerror(Settings().get_error("error_201", "title"),
+                                    Settings().get_error("error_201", "text"))
+        elif status == "error_211":
+            tk.messagebox.showerror(Settings().get_error("error_211", "title"),
+                                    Settings().get_error("error_211", "text"))
+        elif status == "error_212":
+            tk.messagebox.showerror(Settings().get_error("error_212", "title"),
+                                    Settings().get_error("error_212", "text"))
+        elif status == "error_213":
+            tk.messagebox.showerror(Settings().get_error("error_213", "title"),
+                                    Settings().get_error("error_213", "text"))
+        elif status == "error_214":
+            tk.messagebox.showerror(Settings().get_error("error_214", "title"),
+                                    Settings().get_error("error_214", "text"))
 
 
 class Variante2(RootWindow):
@@ -1092,6 +1117,150 @@ class Settings:
                 break
 
         return value
+
+
+class Flurstueckskennzeichen:
+    def __init__(self):
+        self.temp_dir = None
+        self.land = str
+        self.gemarkungsnummer = str
+        self.flurnummer = str
+        self.zaehler = str
+        self.nenner = str
+        self.flurstuecksfolge = str
+        self.raw_data = None
+
+    # noinspection PyArgumentList
+    def main(self, source_path, target_path):
+        # Reads the Excel file
+        self.raw_data = pd.read_excel(rf"{source_path}", dtype="str")
+        rows = len(self.raw_data)
+
+        i = 0
+        while i != rows:
+            flurstueckskennzeichen = self.form_kennzeichen(i)
+            if flurstueckskennzeichen == "error_201":
+                return "error_201"
+
+            status = self.get_from_api(flurstueckskennzeichen)
+            if status == "error_211":
+                return "error_211"
+            elif status == "error_212":
+                return "error_212"
+            elif status == "error_213":
+                return "error_213"
+            elif status == "error_214":
+                return "error_214"
+
+            i = i + 1
+
+        self.gjson_to_gpkg(target_path)
+
+        # Removes the temporary folder
+        self.temp_dir.cleanup()
+
+        return "Done"
+
+    def get_from_api(self, flurstueckskennzeichen):
+        # URL to the ogc-api and inserts the identifier
+        url = f"https://ogc-api.nrw.de/lika/v1/collections/flurstueck/items/{flurstueckskennzeichen}?crs=http%3A%2F" \
+              f"%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F25832&f=json&skipGeometry=false"
+
+        # Requests the data from the API
+        raw_output = requests.get(url)
+        # Loads the data in a json
+        output = raw_output.json()
+
+        if raw_output.status_code == 200:
+            # Creates a temporary directory
+            self.temp_dir = tempfile.TemporaryDirectory()
+            # Saves the JSON file
+            with open(rf"{self.temp_dir.name}/{flurstueckskennzeichen}.json", "w+") as file:
+                json.dump(output, file)
+
+            return "Done"
+
+        else:
+            # Creates/Checks for the /error_logs directory
+            Path(r"bin/error_logs").mkdir(exist_ok=True)
+
+            # Saves the error_log with a time stamp
+            with open(f'bin/error_logs/{time.strftime("%Y%m%d-%H%M%S")}.json', 'w+') as file:
+                json.dump(output, file)
+
+            if raw_output.status_code == 400:
+                return "error_211"
+            elif raw_output.status_code == 404:
+                return "error_212"
+            elif raw_output.status_code == 406:
+                return "error_213"
+            elif raw_output.status_code == 500:
+                return "error_214"
+
+        # Further API documentation
+        # https://ogc-api.nrw.de/lika/v1
+
+    def form_kennzeichen(self, row):
+
+        # Gets the parts of the flurstueckskennzeichen
+        self.land = str(self.raw_data.iloc[row]["Land"])
+        self.gemarkungsnummer = str(self.raw_data.iloc[row]["Gemarkungsnummer"])
+        self.flurnummer = str(self.raw_data.iloc[row]["Flurnummer"])
+        self.zaehler = str(self.raw_data.iloc[row]["Zähler"])
+        self.nenner = str(self.raw_data.iloc[row]["Nenner"])
+        self.flurstuecksfolge = str(self.raw_data.iloc[row]["Flurstücksfolge"])
+
+        # Padds the parts of the flurstueckskennzeichen with 0
+        self.land = self.land.zfill(2)
+        self.gemarkungsnummer = self.gemarkungsnummer.zfill(4)
+        self.flurnummer = self.flurnummer.zfill(3)
+        self.zaehler = self.zaehler.zfill(5)
+        if self.nenner == "nan":
+            self.nenner = "____"
+        if self.flurstuecksfolge == "nan":
+            self.flurstuecksfolge = "__"
+
+        # Connects the parts of the flurstueckskennzeichen
+        composed = self.land + self.gemarkungsnummer + self.flurnummer + self.zaehler + self.nenner \
+            + self.flurstuecksfolge
+
+        # Checks for an Error (the flurstueckskennzeichen is always 20 characters long)
+        if len(composed) == 20:
+            return composed
+        else:
+            return "error_201"
+
+        # Structure of the flurstueckskennzeichen
+        # https://www.adv-online.de/AdV-Produkte/Liegenschaftskataster/ALKIS/binarywriterservlet?imgUid=8c860f61-34ab-4a41-52cf-b581072e13d6&uBasVariant=11111111-1111-1111-1111-111111111111#_C11520-_A11520_49472
+
+    def gjson_to_gpkg(self, target_location):
+        # Gets all filenames in the directory
+        file = os.listdir(self.temp_dir.name)
+        # Adds all .json files to path
+        path = [os.path.join(self.temp_dir.name, i) for i in file if
+                ".json" in i]
+
+        # Merges all files in path to GeoDataFrame raw_data
+        raw_data = gpd.GeoDataFrame(pd.concat([gpd.read_file(i) for i in path]))
+
+        # Resets Index because the Index has to be sorted for .explode
+        raw_data = raw_data.reset_index(drop=True)
+        # Converts Multipolygons to Polygons
+        raw_data = raw_data.explode(index_parts=False)
+        # Sets Coordinate System to EPSG:25832, ignores any problem (possible because the EPSG of the input is also
+        # 25832)
+        raw_data = raw_data.set_crs(25832, allow_override=True)
+
+        # Saves raw_data as GeoPackage file
+        raw_data.to_file(filename=rf"{target_location}\output{time.strftime('%Y%m%d-%H%M%S')}.gpkg", driver="GPKG")
+
+        # Further desription of some code parts
+        # https://stackoverflow.com/questions/48874113/concat-multiple-shapefiles-via-geopandas
+        # https://github.com/geopandas/geopandas/issues/1223
+
+        # Needs to be downloaded and installed via pip
+        # https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal
+        # https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona
 
 
 RootWindow()
