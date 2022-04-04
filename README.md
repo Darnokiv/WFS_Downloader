@@ -46,7 +46,7 @@ Furthermore the program transforms the `.json` file returned by the API in a `.g
 ### Input
 The excel file has to have the right layout to be compatible with the program.
 Important are the name of the columns wich are containing the parameters to build the object Id for the API ("Flurstückskennzeichen").
-In the [example.xlsx](bin/examples.xlsx), the first five columns are prequisite, the last two are optional.
+In the [example.xlsx](bin/example.xlsx), the first five columns are prequisite, the last two are optional.
 
 ### Output
 The output (`.gpkg`) is optimised for using with [QGIS](https://qgis.org/en/site/ "QGIS Homepage") and uses the coordinate system EPSG:25832.
