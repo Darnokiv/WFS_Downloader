@@ -1130,6 +1130,9 @@ class Flurstueckskennzeichen:
         self.flurstuecksfolge = str
         self.raw_data = None
 
+        # Creates a temporary directory
+        self.temp_dir = tempfile.TemporaryDirectory()
+
     # noinspection PyArgumentList
     def main(self, source_path, target_path):
         # Reads the Excel file
@@ -1172,8 +1175,6 @@ class Flurstueckskennzeichen:
         output = raw_output.json()
 
         if raw_output.status_code == 200:
-            # Creates a temporary directory
-            self.temp_dir = tempfile.TemporaryDirectory()
             # Saves the JSON file
             with open(rf"{self.temp_dir.name}/{flurstueckskennzeichen}.json", "w+") as file:
                 json.dump(output, file)
@@ -1240,6 +1241,7 @@ class Flurstueckskennzeichen:
     def gjson_to_gpkg(self, target_location):
         # Gets all filenames in the directory
         file = os.listdir(self.temp_dir.name)
+
         # Adds all .json files to path
         path = [os.path.join(self.temp_dir.name, i) for i in file if ".json" in i]
 
@@ -1250,8 +1252,8 @@ class Flurstueckskennzeichen:
         raw_data = raw_data.reset_index(drop=True)
         # Converts Multipolygons to Polygons
         raw_data = raw_data.explode(index_parts=False)
-        # Sets Coordinate System to EPSG:25832, ignores any problem (possible because the EPSG of the input is also
-        # 25832)
+        # Sets Coordinate System to EPSG:25832, ignores any coordinate system problem (possible because the EPSG of the
+        # input is also 25832)
         raw_data = raw_data.set_crs(25832, allow_override=True)
 
         # Saves raw_data as GeoPackage file
