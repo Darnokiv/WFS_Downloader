@@ -58,4 +58,4 @@ Project is: _in progress_
 
 
 ## License
-This project is open source and available under the [... License]().
+This project is open source and available under the [GNUv3.0 License](LICENSE.md).
