@@ -1,5 +1,5 @@
-# GIS_Downloader
-The GIS_Downloader is a small tool with a Graphical User Interface to easily use [the "ogc_api" of the state North-Rhine-Westphalia in Germany](https://ogc-api.nrw.de/lika/v1 "API documentation (mostly in german)")
+# WFS_Downloader
+The WFS_Downloader is a small tool with a Graphical User Interface to easily use [the "ogc_api" of the state North-Rhine-Westphalia in Germany](https://ogc-api.nrw.de/lika/v1 "API documentation (mostly in german)")
 
 ## Table of Contents
 * [General Info](#general-information)
