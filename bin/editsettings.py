@@ -9,7 +9,7 @@ settings = {
             },
             {
                 "item": "window_title",
-                "window_title": "Stiftung Rheinische Kulturlandschaft (Nur Intern verwenden)"
+                "window_title": "Beta"
             },
             {
                 "item": "geometry",
@@ -17,7 +17,7 @@ settings = {
             },
             {
                 "item": "icon",
-                "icon": "bin/srk_logo.png"
+                "icon": "bin/python_logo.png"
             }
         ],
     "color":
