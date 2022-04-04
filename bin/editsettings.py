@@ -149,6 +149,36 @@ settings = {
                 "item": "error_111",
                 "title": "Dateiformatfehler",
                 "text": "Dateiformat muss *.xlsx oder *.xls sein"
+            },
+            {
+                "item": "error_201",
+                "title": "Zusammensetzungsfehler",
+                "text": "Das Flurstückskennzeichen wurde nicht korrekt eingesetzt. Bitte überprüfen sie die Exceldatei"
+            },
+            {
+                "item": "error_211",
+                "title": "API-Fehler",
+                "text": "Problem bei der API-Abfrage (Status 400). Nähere Infos im Error-Log. Bitte wenden sie sich"
+                        " an den Programmadministrator"
+            },
+            {
+                "item": "error_212",
+                "title": "API-Fehler",
+                "text": "Problem bei der API-Abfrage (API-Status 404). Möglicherweise existiert mindestens ein"
+                        " Flurstückkennzeichen nicht (z.B. wegen eines Tippfehlers). Nähere Infos im Error-Log. Bitte"
+                        " wenden sie sich an den Programmadministrator"
+            },
+            {
+                "item": "error_213",
+                "title": "API-Fehler",
+                "text": "Problem bei der API-Abfrage (API-Status 406). Nähere Infos im Error-Log. Bitte wenden sie sich"
+                        " an den Programmadministrator"
+            },
+            {
+                "item": "error_214",
+                "title": "API-Fehler",
+                "text": "Problem bei der API-Abfrage (API-Status 500). Nähere Infos im Error-Log. Bitte wenden sie sich"
+                        " an den Programmadministrator"
             }
         ]
 }
