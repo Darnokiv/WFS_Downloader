@@ -14,7 +14,7 @@ The WFS_Downloader is a small tool with a Graphical User Interface to easily use
 ## General Information
 The program has been devoleped to use the API easily and also productive with a lot of data at once.
 At the time of writing, it is only possible to ask only for one object at once.
-With the GIS_Downloader at the current stage it is possible to dowmload the data for a whole excel list at once.
+With the WFS_Downloader at the current stage it is possible to dowmload the data for a whole excel list at once.
 Furthermore the program transforms the `.json` file returned by the API in a `.gpkg` file with all requested objects in one file.
 
 
