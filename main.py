@@ -1220,6 +1220,7 @@ class Flurstueckskennzeichen:
             self.nenner = str(self.raw_data.iloc[row]["Nenner"])
         else:
             self.nenner = "____"
+
         if "Flurstücksfolge" in self.raw_data.columns:
             self.flurstuecksfolge = str(self.raw_data.iloc[row]["Flurstücksfolge"])
         else:
